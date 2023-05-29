@@ -5,14 +5,11 @@
 
 package view;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.JComponent;
+import javax.swing.*;
+
 import model.PlayerColor;
 
 public class LeopardChessComponent extends ChessComponent {
@@ -35,22 +32,17 @@ public class LeopardChessComponent extends ChessComponent {
         this.selected = selected;
     }
 
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Font font = new Font("楷体", 0, this.getWidth() / 2);
-        g2.setFont(font);
-        g2.setColor(this.owner.getColor());
-        g2.drawString("豹", this.getWidth() / 4, this.getHeight() * 5 / 8);
-        if (this.isSelected()) {
-            if (isSelected()) { // Highlights the model if selected.
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setColor(new Color(255, 255, 255, 150));
-                Rectangle2D Rectangle = new Rectangle2D.Double(
-                        0, 0, this.getWidth() , this.getHeight());
-                g2d.fill(Rectangle);
-            }
+        ImageIcon pic = new ImageIcon("src/resources/rl.png");
+        if (owner == PlayerColor.BLUE){
+            pic = new ImageIcon("src/resources/bl.png");
         }
+        Image image = pic.getImage();
+        pic = new ImageIcon(image.getScaledInstance(this.getWidth(), this.getWidth(),Image.SCALE_SMOOTH));
+        JLabel label = new JLabel(pic);
+        label.setSize(this.getWidth(), this.getWidth());
+        //bgLabel.setLocation(0, 0);
+        add(label);
     }
 }
